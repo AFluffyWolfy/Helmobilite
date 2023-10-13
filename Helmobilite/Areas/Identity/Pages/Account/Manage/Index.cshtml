@@ -1,0 +1,49 @@
+﻿@page
+@model IndexModel
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "Profil";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <!-- Affichage erreur de formulaire -->
+        @if (ViewData["Error"] != null)
+        {
+            <p style="color: firebrick;">@ViewData["Error"]</p>
+            ViewData["Error"] = null;
+        }
+        <div class="form-floating">
+            <input asp-for="Input.LastName" class="form-control" disabled />
+            <label asp-for="Input.LastName" class="form-label"></label>
+        </div>
+        <div class="form-floating">
+            <input asp-for="Input.FirstName" class="form-control" disabled />
+            <label asp-for="Input.FirstName" class="form-label"></label>
+        </div>
+        <form id="profile-form" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (User.IsInRole("Client"))
+            {
+                <partial name="./PartialView/_ClientIndexFormPartial"></partial>
+            }
+            else if (User.IsInRole("Dispatcher"))
+            {
+                <partial name="./PartialView/_DispatcherIndexFormPartial"></partial>
+            }
+            else if (User.IsInRole("Driver"))
+            {
+                <partial name="./PartialView/_DriverIndexFormPartial"></partial>
+            }
+            
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

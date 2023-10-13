@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Helmobilite.Models.Truck>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LicensePlate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LicenseType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxWeight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PicturePath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LicensePlate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LicenseType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxWeight)
+            </td>
+            <td>
+                @if (item.PicturePath != null)
+                {
+                    <img src="@item.PicturePath" alt="N/A" class="img-fluid img-thumbnail" style="max-height: 3em; max-width: 3em" />
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LicensePlate">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LicensePlate">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LicensePlate">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

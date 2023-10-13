@@ -1,0 +1,44 @@
+﻿@model Helmobilite.ViewModels.MissedDeliveryViewModel;
+
+@{
+    ViewData["Title"] = "Valider un livraison";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Delivery</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @{
+            if(ViewData["Error"] != null)
+            {
+                <p>@ViewData["Error"]</p>
+            }
+        }
+        <div>
+            <p>Chauffeur en charge de la livraison: @Model.DriverName</p>
+            <p>Description de la livraison:</p>
+            <p>@Model.Content</p>
+        </div>
+        <form asp-action="Missed">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MissedCause" class="control-label"></label>
+                <select asp-for="MissedCause" 
+                    class="form-control" 
+                    asp-items="Html.GetEnumSelectList<FailedDeliveryCause>()">
+                    <option>Sélectionnez une license</option>
+                </select>
+                <span asp-validation-for="MissedCause" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Missed" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

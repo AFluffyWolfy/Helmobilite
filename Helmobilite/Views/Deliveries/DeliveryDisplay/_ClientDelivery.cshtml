@@ -1,0 +1,70 @@
+﻿@using Helmobilite.ViewModels
+@model IEnumerable<IndexDeliveryViewModel>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LoadAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnloadAdress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryLoadDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryUnloadDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryUnloadExpectedDateTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoadAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnloadAdress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryLoadDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryUnloadDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryUnloadExpectedDateTime)
+            </td>
+            <td>
+                @{
+                    if(item.IsAccepted)
+                    {
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    }
+                    else 
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

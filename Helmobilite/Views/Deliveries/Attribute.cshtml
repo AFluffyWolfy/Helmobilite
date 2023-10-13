@@ -1,0 +1,40 @@
+﻿@model Helmobilite.ViewModels.AttributeDeliveryViewModel
+
+@{
+    ViewData["Title"] = "Attribue delivery";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Delivery</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @{
+            if(ViewData["Error"] != null)
+            {
+                <p>@ViewData["Error"]</p>
+            }
+        }
+        <form asp-action="Attribute">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Driver" class="control-label"></label>
+                @Html.DropDownListFor(m => m.Driver, ViewBag.Drivers as IEnumerable<SelectListItem>, "Sélectionnez un chauffeur", new { @class = "form-control", @name = "Driver" })
+                <span asp-validation-for="Driver" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TruckPlate" class="control-label"></label>
+                @Html.DropDownListFor(m => m.TruckPlate, ViewBag.TruckPlates as IEnumerable<SelectListItem>, "Sélectionnez un chauffeur", new { @class = "form-control", @name = "TruckPlate" })
+                <span asp-validation-for="TruckPlate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Attribuer" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

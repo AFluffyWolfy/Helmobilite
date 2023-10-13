@@ -1,0 +1,64 @@
+﻿@model List<Helmobilite.ViewModels.IndexDeliveryViewModel>
+
+@{
+    ViewData["Title"] = "Livraisons";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h2>Information client</h2>
+    <p>Nom du client: @ViewBag.ClientName</p>
+    <p>Nom de l'entreprise: @ViewBag.ClientEntrepiseName</p>
+    <p>Adresse de l'entreprise: @ViewBag.ClientAdress</p>
+</div>
+@if(@Model.Count > 0){
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].LoadAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].UnloadAdress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].DeliveryLoadDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].DeliveryUnloadDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].DeliveryUnloadExpectedDateTime)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoadAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnloadAdress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryLoadDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryUnloadDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryUnloadExpectedDateTime)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}

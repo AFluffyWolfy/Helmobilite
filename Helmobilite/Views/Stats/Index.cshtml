@@ -1,0 +1,63 @@
+﻿@model List<Helmobilite.ViewModels.StatsViewModel>
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery csrf
+
+@functions{
+    public string GetAntiCsrfToken()
+    {
+        return csrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+
+<input type="hidden" id="RequestCsrfToken" name="RequestCsrfToken" value="@GetAntiCsrfToken()" />
+@{
+    ViewData["Title"] = "Statistiques des livraisons effectuées";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Index" method="get">
+    <a asp-action="Index">Afficher toutes les livraisons</a>
+    <div class="form-action">
+        Chercher un client: <input type="text" id="SearchClient" name="SearchClient" /> 
+    </div>
+    <div class="form-action">
+        Chercher un conducteur: <input type="text" id="SearchDriver" name="SearchDriver" />
+    </div>
+    <div class="form-action">
+        Chercher par date: <input type="date" id="SearchDate" name="SearchDate" />
+    </div>
+    <input type="submit" value="Rechercher" class="btn btn-primary" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).ClientName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Driver)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Date)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@Html.DisplayFor(item => item.ElementAt(i).ClientName)</td>
+                <td>@Html.DisplayFor(item => item.ElementAt(i).Driver)</td>
+                <td>@Html.DisplayFor(item => item.ElementAt(i).Date)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/jqueryui/jquery-ui.js"></script>
+    <script src="~/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/js/autocompleteclientstats.js"></script>
+    <script src="~/js/autocompletedriverstats.js"></script>
+}

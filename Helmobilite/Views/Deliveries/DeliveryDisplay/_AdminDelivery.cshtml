@@ -1,0 +1,29 @@
+﻿@using Helmobilite.ViewModels
+@model IEnumerable<IndexDeliveryViewModel>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Client
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(int i = 0; i < (ViewBag.Clients == null ? 0 : ViewBag.Clients.Count); i++)
+            {
+                <tr>
+                    <td>@ViewBag.Clients[i].EnterpriseName</td>
+                    <td>
+                        <a asp-action="ClientDeliveries" asp-route-idClient="@ViewBag.Clients[i].Id">Voir les livraisons</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

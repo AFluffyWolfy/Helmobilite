@@ -1,0 +1,88 @@
+﻿@model Helmobilite.ViewModels.TruckEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Truck</h4>
+<hr />
+<div class="row">
+    <p>@ViewBag.Error</p>
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LicensePlate" class="control-label"></label>
+                <input asp-for="LicensePlate" class="form-control" readonly />
+                <span asp-validation-for="LicensePlate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LicenseType" class="control-label"></label>
+                <select asp-for="LicenseType" 
+                    class="form-control" 
+                    asp-items="Html.GetEnumSelectList<DriverLicense>()">
+                    <option>Sélectionnez une license</option>
+                </select>
+                <span asp-validation-for="LicenseType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxWeight" class="control-label"></label>
+                <input asp-for="MaxWeight" class="form-control" />
+                <span asp-validation-for="MaxWeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brand" class="control-label"></label>
+                @Html.DropDownListFor(m => m.Brand, ViewBag.Brands as IEnumerable<SelectListItem>, "Sélectionnez une marque", new { @class = "form-control", @name = "Brand" })
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model" class="control-label"></label>
+                @Html.DropDownListFor(m => m.Model, ViewBag.Models as IEnumerable<SelectListItem>, "Sélectionnez un modèle", new { @class = "form-control", @name = "Model" })
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.PicturePath)
+                <img src="@Model.PicturePath" alt="Photo du camions immatriculé @Model.LicensePlate" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Picture" class="control-label"></label>
+                <input asp-for="Picture" type="file" accept=".png,.jpg,.jpeg,.gif" class="form-control" />
+                <span asp-validation-for="Picture" class="text-danger"></span>
+                <input type="hidden" asp-for="PicturePath" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        //// Get a reference to our file input
+        //const fileInput = document.querySelector('input[type="file"]');
+
+        //// Create a new File object
+        //const myFile = new File(['Hello World!'], 'myFile.txt', {
+        //    type: 'text/plain',
+        //    lastModified: new Date(),
+        //});
+
+        //// Now let's create a FileList
+        //const dataTransfer = new DataTransfer();
+        //dataTransfer.items.add(myFile);
+        //fileInput.files = dataTransfer.files;
+
+        //// Help Safari out
+        //if (fileInput.webkitEntries.length) {
+        //    fileInput.dataset.file = `${dataTransfer.files[0].name}`;
+        //}
+    </script>
+}

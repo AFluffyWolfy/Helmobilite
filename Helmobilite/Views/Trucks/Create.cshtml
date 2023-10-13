@@ -1,0 +1,79 @@
+﻿@model Helmobilite.ViewModels.TruckAddViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Truck</h4>
+<hr />
+<div class="row">
+    <p>@ViewBag.Error</p>
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LicensePlate" class="control-label"></label>
+                <input asp-for="LicensePlate" pattern="[0-9]{1}-[A-Za-z]{3}-[0-9]{3}" class="form-control" />
+                <span asp-validation-for="LicensePlate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LicenseType" class="control-label"></label>
+                <select asp-for="LicenseType" 
+                    class="form-control" 
+                    asp-items="Html.GetEnumSelectList<DriverLicense>()">
+                    <option>Sélectionnez une license</option>
+                </select>
+                <span asp-validation-for="LicenseType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxWeight" class="control-label"></label>
+                <input asp-for="MaxWeight" class="form-control" />
+                <span asp-validation-for="MaxWeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brand" class="control-label"></label>
+                @Html.DropDownListFor(m => m.Brand, ViewBag.Brands as IEnumerable<SelectListItem>, "Sélectionnez une marque", new { @class = "form-control", @name = "Brand" })
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model" class="control-label"></label>
+                @Html.DropDownListFor(m => m.Model, ViewBag.Models as IEnumerable<SelectListItem>, "Sélectionnez un modèle", new { @class = "form-control", @name = "Model" })
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Picture" class="control-label"></label>
+                <input asp-for="Picture" type="file" accept=".png,.jpg,.jpeg,.gif"  class="form-control" />
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        var input = document.getElementById("LicensePlate")
+        const pattern = /-/gi
+        input.addEventListener('keyup', function(e) {
+            console.log("I am writing")
+            if (e.keyCode == 8 || e.keyCode == 46) {
+                return;
+            }
+            if (input.value.length <= 5 && input.value.length > 0) {
+                input.value = input.value.replace(pattern, "").substring(0, 1) + "-" + input.value.replace(pattern, "").substring(1)
+            }
+            if (input.value.length > 5) {
+                input.value = input.value.replace(pattern, "").substring(0, 1) + "-" + input.value.replace(pattern, "").substring(1, 4) + "-" + input.value.replace(pattern, "").substring(4)
+            }
+        });
+    </script>
+}

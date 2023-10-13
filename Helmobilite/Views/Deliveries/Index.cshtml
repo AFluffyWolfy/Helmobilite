@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Helmobilite.ViewModels.IndexDeliveryViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@if(User.IsInRole("Dispatcher")) {
+    <partial name="../PartialView/DispatcherModalExplaination"></partial>
+}
+
+@{
+    switch(ViewBag.Role)
+    {
+        case "Admin":
+            <partial name="DeliveryDisplay/_AdminDelivery.cshtml" model="@Model" />
+            break;
+        case "Dispatcher":
+            <partial name="DeliveryDisplay/_DispatcherDelivery.cshtml" model="@Model" />
+            break;
+        case "Client":
+            <partial name="DeliveryDisplay/_ClientDelivery.cshtml" model="@Model" />
+            break;
+        case "Driver":
+            <partial name="DeliveryDisplay/_DriverDelivery.cshtml" model="@Model" />
+            break;
+        default:
+            <p>Vous vous êtes perdu?</p>
+            break;
+    }
+}

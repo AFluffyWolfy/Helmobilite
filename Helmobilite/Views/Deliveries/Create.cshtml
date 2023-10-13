@@ -1,0 +1,59 @@
+﻿@model Helmobilite.ViewModels.AddDeliveryViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Delivery</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @{
+            if(ViewData["Error"] != null)
+            {
+                <p>@ViewData["Error"]</p>
+            }
+        }
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LoadAddress" class="control-label"></label>
+                <input asp-for="LoadAddress" class="form-control" />
+                <span asp-validation-for="LoadAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnloadAdress" class="control-label"></label>
+                <input asp-for="UnloadAdress" class="form-control" />
+                <span asp-validation-for="UnloadAdress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeliveryLoadDateTime" class="control-label"></label>
+                <input asp-for="DeliveryLoadDateTime" class="form-control" />
+                <span asp-validation-for="DeliveryLoadDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeliveryUnloadExpectedDateTime" class="control-label"></label>
+                <input asp-for="DeliveryUnloadExpectedDateTime" class="form-control" />
+                <span asp-validation-for="DeliveryUnloadExpectedDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

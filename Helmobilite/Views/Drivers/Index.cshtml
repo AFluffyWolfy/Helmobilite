@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Helmobilite.Models.Driver>
+<!-- Idéalement, un ViewModel devrait être ici à la place de l'objet model Client -->
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverLicense)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PicturePath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                @if(item.DriverLicense == DriverLicense.CE)
+                {
+                    <td>CE, C, B</td>
+                } else if(item.DriverLicense == DriverLicense.C)
+                {
+                    <td>C, B</td>
+                } else if (item.DriverLicense == DriverLicense.B)
+                {
+                    <td style="color: firebrick;">B</td>
+                } else
+                {
+                    <td style="color: firebrick;">Pas de permis !</td>
+                }
+                <td>
+                    @if (item.PicturePath != null)
+                    {
+                        <img src="@item.PicturePath" alt="N/A" class="img-fluid img-thumbnail" style="max-height: 3em; max-width: 3em" />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

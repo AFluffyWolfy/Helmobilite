@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Helmobilite.Models.Client>
+<!-- Idéalement, un ViewModel devrait être ici à la place de l'objet model Client -->
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PicturePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Untrusted)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @if (item.PicturePath != null)
+                    {
+                        <img src="@item.PicturePath" alt="N/A" class="img-fluid img-thumbnail" style="max-height: 3em; max-width: 3em" />
+                    }
+                </td>
+                @if(item.Untrusted)
+                {
+                    <td style="color: firebrick;">Mauvais payeur !</td>
+                } else
+                {
+                    <td>Rien à signaler</td>
+                }
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

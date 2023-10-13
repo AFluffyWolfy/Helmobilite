@@ -1,0 +1,52 @@
+﻿@model Helmobilite.ViewModels.IndexDeliveryViewModel
+
+<td>
+    <span class="control-label col-md-6" style="color: darkgrey";>
+        @Html.DisplayFor(item => item.LoadAddress)
+    </span>
+</td>
+<td>
+    <span class="control-label col-md-6" style="color: darkgrey" ;>
+        @Html.DisplayFor(item => item.UnloadAdress)
+    </span>
+</td>
+<td>
+    <span class="control-label col-md-6" style="color: darkgrey" ;>
+        @Html.DisplayFor(item => item.Content)
+    </span>
+</td>
+<td>
+    <span class="control-label col-md-6" style="color: darkgrey" ;>
+        @Html.DisplayFor(item => item.DeliveryLoadDateTime)
+    </span>
+</td>
+<td>
+    <span class="control-label col-md-6" style="color: darkgrey" ;>
+        @Html.DisplayFor(item => item.DeliveryUnloadDateTime)
+    </span>
+</td>
+<td>
+    <span class="control-label col-md-6" style="color: darkgrey" ;>
+        @Html.DisplayFor(item => item.DeliveryUnloadExpectedDateTime)
+    </span>
+</td>
+<td>
+    <span class="control-label col-md-6" style="color: darkgrey" ;>
+        @Html.DisplayFor(item => item.FailedCause)
+    </span>
+</td>
+<td>
+    @{
+        if (User.IsInRole("Dispatcher"))
+        {
+            <s>Valider</s>
+        }
+        else
+        {
+            <s>Edit</s>
+        }
+    }
+    |
+    <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
+    <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+</td>

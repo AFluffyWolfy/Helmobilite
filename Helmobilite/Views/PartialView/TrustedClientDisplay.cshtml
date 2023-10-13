@@ -1,0 +1,43 @@
+﻿@model Helmobilite.ViewModels.IndexDeliveryViewModel
+
+<td>
+    @Html.DisplayFor(item => item.LoadAddress)
+</td>
+<td>
+    @Html.DisplayFor(item => item.UnloadAdress)
+</td>
+<td>
+    @Html.DisplayFor(item => item.Content)
+</td>
+<td>
+    @Html.DisplayFor(item => item.DeliveryLoadDateTime)
+</td>
+<td>
+    @Html.DisplayFor(item => item.DeliveryUnloadDateTime)
+</td>
+<td>
+    @Html.DisplayFor(item => item.DeliveryUnloadExpectedDateTime)
+</td>
+<td>
+    @Html.DisplayFor(item => item.FailedCause)
+</td>
+<td>
+    @{
+        if (User.IsInRole("Dispatcher"))
+        {
+            <a asp-action="Attribute" asp-route-id="@Model.Id">Valider</a>
+        }
+        else if (User.IsInRole("Driver"))
+        {
+            <a asp-action="Validate" asp-route-id="@Model.Id">Livraison Effectuée</a>
+            <a asp-action="Missed" asp-route-id="@Model.Id">Livraison ratée</a>
+        }
+        else
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        }
+    }
+    |
+    <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
+    <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+</td>

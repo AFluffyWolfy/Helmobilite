@@ -1,0 +1,51 @@
+﻿@using Helmobilite.ViewModels
+@model IEnumerable<IndexDeliveryViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LoadAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnloadAdress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryLoadDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryUnloadDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryUnloadExpectedDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FailedCause)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @if (item.isClientUntrusted)
+            {
+                <partial name="../PartialView/UntrustedClientDisplay" model="item"></partial>
+            }
+            else
+            {
+                <partial name="../PartialView/TrustedClientDisplay" model="item"></partial>
+            }
+        </tr>
+}
+    </tbody>
+</table>
+
+    <script type="text/javascript">
+        setTimeout(function(){
+           window.location.reload();
+        }, 15000);
+    </script>

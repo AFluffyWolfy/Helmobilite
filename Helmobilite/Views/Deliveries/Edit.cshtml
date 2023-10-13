@@ -1,0 +1,60 @@
+﻿@model Helmobilite.ViewModels.EditDeliveryViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Delivery</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @{
+            if(@Model.IsAccepted) {
+                <p>La demande de livraison ne peut plus être modifée, car elle a déjà été acceptée.</p>
+            } else {                
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="LoadAddress" class="control-label"></label>
+                        <input asp-for="LoadAddress" class="form-control" />
+                        <span asp-validation-for="LoadAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UnloadAdress" class="control-label"></label>
+                        <input asp-for="UnloadAdress" class="form-control" />
+                        <span asp-validation-for="UnloadAdress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Content" class="control-label"></label>
+                        <input asp-for="Content" class="form-control" />
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DeliveryLoadDateTime" class="control-label"></label>
+                        <input asp-for="DeliveryLoadDateTime" class="form-control" />
+                        <span asp-validation-for="DeliveryLoadDateTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DeliveryUnloadExpectedDateTime" class="control-label"></label>
+                        <input asp-for="DeliveryUnloadExpectedDateTime" class="form-control" />
+                        <span asp-validation-for="DeliveryUnloadExpectedDateTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+            }
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
